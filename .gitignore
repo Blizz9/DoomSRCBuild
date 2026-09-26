@@ -1,0 +1,5 @@
+build/vendor/*
+!build/vendor/manifest.yaml
+
+build/bin/*
+build/cache/*
