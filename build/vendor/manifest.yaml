@@ -3,6 +3,8 @@ vendor-files:
     md5: bd0a9328ecd0c8bbf7929ccbb81e0bc7
   - name: DMX_Library_DOS_Radek_1992_Source Code.7z
     md5: c7f9d9d10cac3d3058c57b062c87e6a6
+  - name: doom19s.zip
+    md5: 244d181457c9be5f28b91b488e67e042
   - name: dos32a-735-bin.zip
     md5: a2b993f0209502c1409e43e6eb447a5e
   - name: Watcom CPP 9.5b (1993) (3.5-1.44mb).7z

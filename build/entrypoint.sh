@@ -10,11 +10,6 @@ if [ -d "/cache" ] && [ -n "$(ls -A "/cache" 2>/dev/null)" ]; then
     touch /dos/SKIPINST.FLG
 fi
 
-echo "Linux Environment | Preparing DMX directories" >> /dos/STDOUT.LOG
-mkdir /dos/DMX/dmx37
-cp -r /dos/DMX/dmx34a/* /dos/DMX/dmx37/
-cp -r /dos/DMX/dmx37lib/* /dos/DMX/dmx37/
-
 if [ -n "$VNC_SERVER" ]; then
     echo "Linux Environment | Launching X11 VNC server" >> /dos/STDOUT.LOG
     x11vnc -forever -create -display :99 -nopw &
@@ -22,7 +17,10 @@ fi
 
 dosbox &
 
-if [ ! -f /dos/SKIPINST.FLG ]; then
+if [ -f /dos/SKIPINST.FLG ]; then
+    echo "Linux Environment | Waiting for the Doom build to complete" >> /dos/STDOUT.LOG
+    sleep 120
+else
     echo "Linux Environment | Waiting to switch to Watcom C++ 9.5 disk 2" >> /dos/STDOUT.LOG
     sleep 35
     DISPLAY=:99 xdotool key ctrl+F4
@@ -112,21 +110,36 @@ if [ ! -f /dos/SKIPINST.FLG ]; then
     sleep 4
     DISPLAY=:99 xdotool key Return
     DISPLAY=:99 xdotool key Escape
+
+    echo "Linux Environment | Waiting for the Doom build to complete" >> /dos/STDOUT.LOG
+    sleep 240
 fi
 
-echo "Linux Environment | Waiting for the Doom build to compelete" >> /dos/STDOUT.LOG
-sleep 200
-
 if [ -d "/cache" ] && [ -z "$(ls -A "/cache")" ]; then
-    echo "Linux Environment | Cache directory exists and is empty; caching Watcom C++ and TASM installs" >> /dos/STDOUT.LOG
+    echo "Linux Environment | Cache directory exists and is empty; caching Watcom C++, TASM, and Doom v1.9 installs" >> /dos/STDOUT.LOG
     mkdir /cache/BORLANDC/
     cp -r /dos/BORLANDC/* /cache/BORLANDC/
     mkdir /cache/WATCOM/
     cp -r /dos/WATCOM/* /cache/WATCOM/
+    mkdir /cache/DOOM19/
+    cp -r /dos/DOOM19/* /cache/DOOM19/
 fi
 
-echo "Linux Environment | Copying compiled binary to /dosbin" >> /dos/STDOUT.LOG
+echo "Linux Environment | Copying original and compiled binaries to /dosbin" >> /dos/STDOUT.LOG
 mkdir /dosbin
-cp /dos/SRC/DM19/STRPDOOM.LE /dosbin/'doom v1.9 (stripped).le'
+cp /dos/DOOM19/DOOM.LE /dosbin/'Doom v1.9 Original.le'
+cp /dos/SRC/DM19/STRPDOOM.LE /dosbin/'Doom v1.9 Compiled.le'
+
+echo "Linux Environment | Comparing build against original binary" >> /dos/STDOUT.LOG
+cd /dosbin
+echo "Linux Environment | diff:" >> /dos/STDOUT.LOG
+diff -y --suppress-common-lines <(xxd "Doom v1.9 Original.le") <(xxd "Doom v1.9 Compiled.le")
+echo "Linux Environment | wdiff:" >> /dos/STDOUT.LOG
+wdiff -s -123 "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+echo "Linux Environment | radare2 radiff2:" >> /dos/STDOUT.LOG
+radiff2 -s "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+echo "Linux Environment | simhash:" >> /dos/STDOUT.LOG
+simhash -w "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+simhash -c "Doom v1.9 Original.le.sim" "Doom v1.9 Compiled.le.sim"
 
 sleep 3600

@@ -5,8 +5,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     curl jq p7zip-full vim xz-utils \
     x11vnc xauth xdotool xvfb \
+    simhash wdiff \
+    build-essential git pkg-config \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/radareorg/radare2 \
+  && radare2/sys/install.sh
 
 RUN DOSBOX_STAGING_LATEST_VERSION=$(curl -sX GET "https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest" | jq -r '.tag_name') \
   && curl -L -o /tmp/dosbox-staging.tar.xz https://github.com/dosbox-staging/dosbox-staging/releases/download/${DOSBOX_STAGING_LATEST_VERSION}/dosbox-staging-linux-x86_64-${DOSBOX_STAGING_LATEST_VERSION}.tar.xz \
@@ -36,9 +41,14 @@ RUN 7z x /img/watcom/Patch32.zip -o/dos \
 RUN 7z x /vendor/'DMX_Library_DOS_Radek_1992_Source Code.7z' -o/dos \
   && mkdir /dos/DMX \
   && mv /dos/'DMX_Library_DOS_Radek_1992_Source Code'/* /dos/DMX/ \
-  && rmdir /dos/'DMX_Library_DOS_Radek_1992_Source Code'
+  && rmdir /dos/'DMX_Library_DOS_Radek_1992_Source Code' \
+  && mkdir /dos/DMX/dmx37 \
+  && cp -r /dos/DMX/dmx34a/* /dos/DMX/dmx37/ \
+  && cp -r /dos/DMX/dmx37lib/* /dos/DMX/dmx37/
 RUN mkdir /dos/DOS32A \
   && 7z x /vendor/dos32a-735-bin.zip -o/dos/DOS32A
+RUN mkdir /dos/DOOM19 \
+  && 7z x /vendor/doom19s.zip -o/dos/DOOM19
 
 RUN rm -rf ./vendor
 
