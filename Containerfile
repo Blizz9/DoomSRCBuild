@@ -42,13 +42,12 @@ RUN 7z x /vendor/'DMX_Library_DOS_Radek_1992_Source Code.7z' -o/dos \
   && mkdir /dos/DMX \
   && mv /dos/'DMX_Library_DOS_Radek_1992_Source Code'/* /dos/DMX/ \
   && rmdir /dos/'DMX_Library_DOS_Radek_1992_Source Code' \
-  && mkdir /dos/DMX/dmx37 \
-  && cp -r /dos/DMX/dmx34a/* /dos/DMX/dmx37/ \
-  && cp -r /dos/DMX/dmx37lib/* /dos/DMX/dmx37/
+  && mkdir /dos/DMX/dmx_dm10 \
+  && cp -r /dos/DMX/dmx34a/* /dos/DMX/dmx_dm10/
 RUN mkdir /dos/DOS32A \
   && 7z x /vendor/dos32a-735-bin.zip -o/dos/DOS32A
-RUN mkdir /dos/DOOM19 \
-  && 7z x /vendor/doom19s.zip -o/dos/DOOM19
+RUN mkdir /dos/DOOM10 \
+  && 7z x /vendor/doom1_0.zip -o/dos/DOOM10
 
 RUN rm -rf ./vendor
 
