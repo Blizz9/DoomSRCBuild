@@ -7,5 +7,7 @@ vendor-files:
     md5: 244d181457c9be5f28b91b488e67e042
   - name: dos32a-735-bin.zip
     md5: a2b993f0209502c1409e43e6eb447a5e
+  - name: Final DOOM (1996).zip
+    md5: f09696b9430ae33e7b967f90add999d3
   - name: Watcom CPP 9.5b (1993) (3.5-1.44mb).7z
     md5: a0026aaec8b9796ea020396b403784a4

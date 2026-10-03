@@ -116,30 +116,30 @@ else
 fi
 
 if [ -d "/cache" ] && [ -z "$(ls -A "/cache")" ]; then
-    echo "Linux Environment | Cache directory exists and is empty; caching Watcom C++, TASM, and Doom v1.9 installs" >> /dos/STDOUT.LOG
+    echo "Linux Environment | Cache directory exists and is empty; caching Watcom C++, TASM, and Doom installs" >> /dos/STDOUT.LOG
     mkdir /cache/BORLANDC/
     cp -r /dos/BORLANDC/* /cache/BORLANDC/
     mkdir /cache/WATCOM/
     cp -r /dos/WATCOM/* /cache/WATCOM/
-    mkdir /cache/DOOM19/
-    cp -r /dos/DOOM19/* /cache/DOOM19/
+    mkdir /cache/DOOM19F/
+    cp -r /dos/DOOM19F/* /cache/DOOM19F/
 fi
 
 echo "Linux Environment | Copying original and compiled binaries to /dosbin" >> /dos/STDOUT.LOG
 mkdir /dosbin
-cp /dos/DOOM19/DOOM.LE /dosbin/'Doom v1.9 Original.le'
-cp /dos/SRC/DM19/STRPDOOM.LE /dosbin/'Doom v1.9 Compiled.le'
+cp /dos/DOOM19F/FinalDOO/plutonia/DOOM2.LE /dosbin/'Final Doom Original.le'
+cp /dos/SRC/DM19F/STRPDOOM.LE /dosbin/'Final Doom Compiled.le'
 
 echo "Linux Environment | Comparing build against original binary" >> /dos/STDOUT.LOG
 cd /dosbin
 echo "Linux Environment | diff:" >> /dos/STDOUT.LOG
-diff -y --suppress-common-lines <(xxd "Doom v1.9 Original.le") <(xxd "Doom v1.9 Compiled.le")
+diff -y --suppress-common-lines <(xxd "Final Doom Original.le") <(xxd "Final Doom Compiled.le")
 echo "Linux Environment | wdiff:" >> /dos/STDOUT.LOG
-wdiff -s -123 "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+wdiff -s -123 "Final Doom Original.le" "Final Doom Compiled.le"
 echo "Linux Environment | radare2 radiff2:" >> /dos/STDOUT.LOG
-radiff2 -s "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+radiff2 -s "Final Doom Original.le" "Final Doom Compiled.le"
 echo "Linux Environment | simhash:" >> /dos/STDOUT.LOG
-simhash -w "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
-simhash -c "Doom v1.9 Original.le.sim" "Doom v1.9 Compiled.le.sim"
+simhash -w "Final Doom Original.le" "Final Doom Compiled.le"
+simhash -c "Final Doom Original.le.sim" "Final Doom Compiled.le.sim"
 
 sleep 3600
