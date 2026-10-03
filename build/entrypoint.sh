@@ -121,25 +121,25 @@ if [ -d "/cache" ] && [ -z "$(ls -A "/cache")" ]; then
     cp -r /dos/BORLANDC/* /cache/BORLANDC/
     mkdir /cache/WATCOM/
     cp -r /dos/WATCOM/* /cache/WATCOM/
-    mkdir /cache/DOOM19/
-    cp -r /dos/DOOM19/* /cache/DOOM19/
+    mkdir /cache/DOOM19U/
+    cp -r /dos/DOOM19U/* /cache/DOOM19U/
 fi
 
 echo "Linux Environment | Copying original and compiled binaries to /dosbin" >> /dos/STDOUT.LOG
 mkdir /dosbin
-cp /dos/DOOM19/DOOM.LE /dosbin/'Doom v1.9 Original.le'
-cp /dos/SRC/DM19/STRPDOOM.LE /dosbin/'Doom v1.9 Compiled.le'
+cp /dos/DOOM19U/DOOM.LE /dosbin/'The Ultimate Doom Original.le'
+cp /dos/SRC/DM19U/STRPDOOM.LE /dosbin/'The Ultimate Doom Compiled.le'
 
 echo "Linux Environment | Comparing build against original binary" >> /dos/STDOUT.LOG
 cd /dosbin
 echo "Linux Environment | diff:" >> /dos/STDOUT.LOG
-diff -y --suppress-common-lines <(xxd "Doom v1.9 Original.le") <(xxd "Doom v1.9 Compiled.le")
+diff -y --suppress-common-lines <(xxd "The Ultimate Doom Original.le") <(xxd "The Ultimate Doom Compiled.le")
 echo "Linux Environment | wdiff:" >> /dos/STDOUT.LOG
-wdiff -s -123 "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+wdiff -s -123 "The Ultimate Doom Original.le" "The Ultimate Doom Compiled.le"
 echo "Linux Environment | radare2 radiff2:" >> /dos/STDOUT.LOG
-radiff2 -s "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
+radiff2 -s "The Ultimate Doom Original.le" "The Ultimate Doom Compiled.le"
 echo "Linux Environment | simhash:" >> /dos/STDOUT.LOG
-simhash -w "Doom v1.9 Original.le" "Doom v1.9 Compiled.le"
-simhash -c "Doom v1.9 Original.le.sim" "Doom v1.9 Compiled.le.sim"
+simhash -w "The Ultimate Doom Original.le" "The Ultimate Doom Compiled.le"
+simhash -c "The Ultimate Doom Original.le.sim" "The Ultimate Doom Compiled.le.sim"
 
 sleep 3600

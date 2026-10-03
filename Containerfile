@@ -47,8 +47,8 @@ RUN 7z x /vendor/'DMX_Library_DOS_Radek_1992_Source Code.7z' -o/dos \
   && cp -r /dos/DMX/dmx37lib/* /dos/DMX/dmx37/
 RUN mkdir /dos/DOS32A \
   && 7z x /vendor/dos32a-735-bin.zip -o/dos/DOS32A
-RUN mkdir /dos/DOOM19 \
-  && 7z x /vendor/doom19s.zip -o/dos/DOOM19
+RUN mkdir /dos/DOOM19U \
+  && 7z x /vendor/The_Ultimate_Doom.zip -o/dos/DOOM19U
 
 RUN rm -rf ./vendor
 
