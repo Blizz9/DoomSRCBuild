@@ -3,6 +3,8 @@ vendor-files:
     md5: bd0a9328ecd0c8bbf7929ccbb81e0bc7
   - name: DMX_Library_DOS_Radek_1992_Source Code.7z
     md5: c7f9d9d10cac3d3058c57b062c87e6a6
+  - name: dm1666sw.zip
+    md5: 875863fd76a18eb1c9834141401a5715
   - name: doom19s.zip
     md5: 244d181457c9be5f28b91b488e67e042
   - name: dos32a-735-bin.zip
